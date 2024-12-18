@@ -32,9 +32,9 @@ export default Btn;
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: 12,
+    paddingVertical: 16,
     paddingHorizontal: 20,
-    borderRadius: 25,
+    borderRadius: 50,
     marginVertical: 10,
     width: '90%',
     alignSelf: 'center',
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
   },
 });

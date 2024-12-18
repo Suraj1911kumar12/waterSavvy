@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -6,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {useNavigation} from '@react-navigation/native';
 import {Color} from '../../../constants/Color';
@@ -16,6 +16,7 @@ import {SCREEN_WIDTH} from '../../../constants/Size';
 
 const Onboarding = () => {
   const navigation = useNavigation();
+  const [activeIndex, setActiveIndex] = useState(0); // Track active slide index
 
   const data = [
     {
@@ -53,7 +54,7 @@ const Onboarding = () => {
     );
   };
 
-  const renderPagination = activeIndex => {
+  const renderPagination = () => {
     return (
       <View style={styles.paginationContainer}>
         {/* Dots */}
@@ -78,7 +79,9 @@ const Onboarding = () => {
               <Text style={styles.buttonText}>Get Started</Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => setActiveIndex(activeIndex + 1)}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           )}
@@ -93,6 +96,7 @@ const Onboarding = () => {
         data={data}
         renderItem={renderSlides}
         renderPagination={renderPagination}
+        onSlideChange={index => setActiveIndex(index)} // Update activeIndex on slide change
         onDone={() => navigation.navigate(ScreenNames.welcome)}
       />
     </SafeAreaView>

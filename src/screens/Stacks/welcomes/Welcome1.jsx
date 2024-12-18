@@ -1,16 +1,26 @@
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import WelcomeStyle from '../../../Styles/welcome/WelcomeStyle';
-import {Color} from '../../../constants/Color';
 import Btn from '../../../components/UI_Components/buttons/Btn';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../../constants/Screen';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../../constants/Size';
+import {Color} from '../../../constants/Color';
+import {useDispatch} from 'react-redux';
 
-const SocialLoginButton = ({icon, name, onPress}) => {
+const {width, height} = Dimensions.get('window');
+
+const SocialLoginButton = ({image}) => {
   return (
-    <View style={styles.socialButton}>
-      <FontAwesome name={icon} size={24} color={Color.grey} />
+    <View style={WelcomeStyle.socialButton}>
+      <Image source={image} style={WelcomeStyle.socialIcon} />
     </View>
   );
 };
@@ -22,25 +32,41 @@ const Welcome1 = () => {
       {/* Background Image */}
       <Image
         source={require('../../../../assets/images/Group_34.png')}
-        resizeMode="cover"
-        style={WelcomeStyle.backgroundImage}
+        resizeMode="stretch"
+        style={[
+          WelcomeStyle.backgroundImage,
+          {
+            height: SCREEN_HEIGHT * 0.5,
+          },
+        ]}
       />
 
       {/* Title and Subtitle */}
       <View style={WelcomeStyle.textContainer}>
-        <Text style={styles.title}>WaterSavvy 1</Text>
-        <Text style={styles.subtitle}>Visualize Water Data</Text>
+        <Text style={WelcomeStyle.title}>WaterSavvy</Text>
+        <Text style={WelcomeStyle.subtitle}>Visualize Water Data</Text>
       </View>
       <View style={WelcomeStyle.mainContainer}>
         {/* Orb AI Image */}
         <Image
+          source={require('../../../../assets/images/Background_Orb.png')}
+          resizeMode="cover"
+          style={WelcomeStyle.backgroundOrb}
+        />
+        <Image
           source={require('../../../../assets/images/ORB_AI.png')}
           resizeMode="cover"
-          style={[WelcomeStyle.orbAIImage]}
+          style={WelcomeStyle.orbAIImage}
         />
 
         {/* Buttons */}
-        <View style={[WelcomeStyle.getStartedContainer, {marginTop: 50}]}>
+        <View
+          style={[
+            WelcomeStyle.getStartedContainer,
+            {
+              paddingTop: 150,
+            },
+          ]}>
           <Btn
             bgShow
             title="Start Browsing"
@@ -49,9 +75,9 @@ const Welcome1 = () => {
           <Btn title="Sign Up" />
         </View>
       </View>
-      <View style={styles.accountContainer}>
-        <Text style={styles.haveAccountText}>Have an account?</Text>
-        <Text style={styles.welcomeBackText}>Welcome Back</Text>
+      <View style={[WelcomeStyle.accountContainer]}>
+        <Text style={WelcomeStyle.haveAccountText}>Have an account?</Text>
+        <Text style={WelcomeStyle.welcomeBackText}>Welcome Back</Text>
       </View>
     </SafeAreaView>
   );
@@ -61,13 +87,13 @@ export default Welcome1;
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 30,
+    fontSize: SCREEN_WIDTH * 0.08,
     fontWeight: 'bold',
     color: Color.darkGray,
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: SCREEN_WIDTH * 0.045,
     color: Color.lightGray,
     textAlign: 'center',
   },
@@ -75,9 +101,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 20,
+    marginVertical: SCREEN_HEIGHT * 0.02,
     width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: SCREEN_WIDTH * 0.05,
   },
   dividerLine: {
     height: 1,
@@ -85,58 +111,64 @@ const styles = StyleSheet.create({
     backgroundColor: Color.grey,
   },
   dividerText: {
-    fontSize: 12,
+    fontSize: SCREEN_WIDTH * 0.03,
     color: Color.grey,
-    marginHorizontal: 8,
+    marginHorizontal: SCREEN_WIDTH * 0.02,
     textTransform: 'uppercase',
   },
   socialLoginContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
+    gap: width * 0.05,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: height * 0.01,
     width: '100%',
   },
   socialButton: {
-    flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    padding: width * 0.03,
     backgroundColor: '#F5F5F5',
-    // borderRadius: 50,
-    borderRadius: 100,
-    width: 50,
-    height: 50,
+    borderRadius: SCREEN_WIDTH * 0.1,
+    width: width * 0.13,
+    height: width * 0.13,
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: {SCREEN_WIDTH: 0, SCREEN_HEIGHT: 2},
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
   },
-  socialButtonText: {
-    marginLeft: 8,
-    fontSize: 14,
-    fontWeight: '600',
-    color: Color.black,
+  socialIcon: {
+    width: '60%',
+    height: '60%',
+    resizeMode: 'contain',
   },
   accountContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
+    alignItems: 'flex-end',
+    marginTop: height * 0.02,
     width: '100%',
-    gap: 1,
-    paddingHorizontal: 100,
-    marginBottom: 20,
+    paddingHorizontal: SCREEN_WIDTH * 0.2,
+    marginBottom: SCREEN_HEIGHT * 0.03,
   },
   haveAccountText: {
-    fontSize: 16,
-    color: '#7A7A7A', // Light grey for subtle text
+    fontSize: width * 0.04,
+    color: '#7A7A7A',
   },
   welcomeBackText: {
-    fontSize: 16,
+    fontSize: SCREEN_WIDTH * 0.04,
     fontWeight: 'bold',
-    color: Color.blue, // Black for emphasis
+    color: Color.blue,
     textDecorationLine: 'underline',
+  },
+  backgroundOrb: {
+    position: 'absolute',
+    width: '120%',
+    height: SCREEN_HEIGHT,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
+    opacity: 0.5,
   },
 });

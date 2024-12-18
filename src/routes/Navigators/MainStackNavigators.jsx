@@ -9,6 +9,7 @@ import Welcome from '../../screens/Stacks/welcomes/Welcome';
 import Welcome1 from '../../screens/Stacks/welcomes/Welcome1';
 import Welcome2 from '../../screens/Stacks/welcomes/Welcome2';
 import Onboarding from '../../screens/Stacks/Onboarding/Onboarding';
+import ProductDetails from '../../screens/Stacks/ProductDetails';
 
 const Stack = createStackNavigator();
 const MainStackNavigators = () => {
@@ -27,6 +28,10 @@ const MainStackNavigators = () => {
         <Stack.Screen name={ScreenNames.Home} component={Home} />
         <Stack.Screen name={ScreenNames.Detail} component={Details} />
         <Stack.Screen name={ScreenNames.Login} component={Login} />
+        <Stack.Screen
+          name={ScreenNames.productDetails}
+          component={ProductDetails}
+        />
       </Stack.Navigator>
     </>
   );

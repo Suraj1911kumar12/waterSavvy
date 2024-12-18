@@ -15,4 +15,6 @@ export const ScreenNames = {
   SignUp: 'SignUpScreen',
   ForgotPassword: 'ForgotPasswordScreen',
   Login: 'Login',
+
+  productDetails: 'productDetails',
 };
